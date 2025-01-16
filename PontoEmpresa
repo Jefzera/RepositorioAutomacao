@@ -1,0 +1,18 @@
+#Este código basicamente lê os dados de um arquivo Excel, filtra os colaboradores com base nas horas trabalhadas e faltas, e salva os resultados em dois novos arquivos Excel: 
+um para os colaboradores que estão completos (220 horas ou mais e sem faltas) e outro para os que estão incompletos 
+(menos de 220 horas ou com faltas).
+
+import pandas as pd
+
+# Carregar o arquivo Excel
+df = pd.read_excel('PontoFunc.xlsx')
+
+# Filtrar os dados para 'completo' e 'incompleto'
+completo = df[(df['Horas totais'] >= 220) & (df['Faltas'] == 0)]
+incompleto = df[(df['Horas totais'] < 220) | (df['Faltas'] > 0)]
+
+# Salvar os dados filtrados em novos arquivos Excel
+completo.to_excel('completo.xlsx', index=False)
+incompleto.to_excel('incompleto.xlsx', index=False)
+
+print("Planilhas 'completo' e 'incompleto' foram criadas com sucesso.")
